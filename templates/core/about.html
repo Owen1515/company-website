@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">About Us</h1>
+    
+    {% if company_info %}
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <p class="lead">{{ company_info.about_text }}</p>
+        </div>
+    </div>
+    {% endif %}
+    
+    <h2 class="text-center mb-4">Our Team</h2>
+    <div class="row">
+        {% for director in directors %}
+        <div class="col-md-4 text-center mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    {% if director.image %}
+                        <img src="{{ director.image.url }}" class="director-img mb-3" alt="{{ director.name }}">
+                    {% endif %}
+                    <h4>{{ director.name }}</h4>
+                    <h6 class="text-muted">{{ director.title }}</h6>
+                    <p>{{ director.bio|truncatewords:30 }}</p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:{{ director.email }}">{{ director.email }}</a></p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Team information coming soon.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

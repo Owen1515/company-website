@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="hero">
+    <div class="container text-center">
+        <h1 class="display-4">Welcome to Our Company</h1>
+        <p class="lead">We deliver excellence in every project</p>
+        <a href="{% url 'contact' %}" class="btn btn-light btn-lg">Get Started</a>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Our Services</h2>
+    <div class="row">
+        {% for service in services %}
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas {{ service.icon|default:'fa-star' }} fa-3x mb-3 text-primary"></i>
+                    <h5 class="card-title">{{ service.title }}</h5>
+                    <p class="card-text">{{ service.description|truncatewords:20 }}</p>
+                    {% if service.price_range %}
+                        <p class="text-muted">{{ service.price_range }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Services coming soon...</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Featured Projects</h2>
+    <div class="row">
+        {% for project in featured_projects %}
+        <div class="col-md-4">
+            <div class="card">
+                {% if project.image %}
+                    <img src="{{ project.image.url }}" class="card-img-top project-img" alt="{{ project.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.description|truncatewords:15 }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No projects yet.</p>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+        <a href="{% url 'portfolio' %}" class="btn btn-primary">View All Projects</a>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Our Directors</h2>
+    <div class="row">
+        {% for director in directors %}
+        <div class="col-md-3 text-center">
+            {% if director.image %}
+                <img src="{{ director.image.url }}" class="director-img mb-3" alt="{{ director.name }}">
+            {% endif %}
+            <h5>{{ director.name }}</h5>
+            <p class="text-muted">{{ director.title }}</p>
+        </div>
+        {% empty %}
+        <p class="text-center">Director information coming soon.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

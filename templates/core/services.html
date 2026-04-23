@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">Our Services</h1>
+    <div class="row">
+        {% for service in services %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas {{ service.icon|default:'fa-cog' }} fa-2x text-primary me-3"></i>
+                        <h3 class="mb-0">{{ service.title }}</h3>
+                    </div>
+                    <p>{{ service.description }}</p>
+                    {% if service.price_range %}
+                        <p class="text-primary"><strong>{{ service.price_range }}</strong></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No services listed yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

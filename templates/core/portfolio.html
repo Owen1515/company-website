@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">Our Portfolio</h1>
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if project.image %}
+                    <img src="{{ project.image.url }}" class="card-img-top project-img" alt="{{ project.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.description }}</p>
+                    {% if project.client %}
+                        <p class="text-muted">Client: {{ project.client }}</p>
+                    {% endif %}
+                    {% if project.url %}
+                        <a href="{{ project.url }}" target="_blank" class="btn btn-sm btn-outline-primary">View Project</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No projects uploaded yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
